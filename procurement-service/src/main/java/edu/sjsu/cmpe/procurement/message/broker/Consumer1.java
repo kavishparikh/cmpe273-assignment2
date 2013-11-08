@@ -40,14 +40,13 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 class Consumer1 {
 
- //   @SuppressWarnings("static-access")
+    //@SuppressWarnings("static-access")
 	public static void main(String[] args) throws JMSException, InterruptedException {
 	String user = env("APOLLO_USER", "admin");
 	String password = env("APOLLO_PASSWORD", "password");
 	String host = env("APOLLO_HOST", "54.215.210.214");
 	int port = Integer.parseInt(env("APOLLO_PORT", "61613"));
 	String queue = "/queue/69858.book.orders";
-//	String args[] = new  String[]{};
 	String destination = arg(args, 0, queue);
 
 	long waitUntil = 5000; // wait for 5 sec
@@ -143,9 +142,6 @@ class Consumer1 {
             String baseuri = "http://54.215.210.214:9000/orders";
             WebResource webResource = client.resource(baseuri);
 
-//            MultivaluedMap formData = new MultivaluedMapImpl();
-//            formData.add("id", "69858");
-//            formData.add("order_book_isbns", isbnArray);
             String input = "{\"id\": \"69858\", "
                     + "\"order_book_isbns\": "+Arrays.toString(isbnArray)+"}";
 
@@ -167,5 +163,4 @@ class Consumer1 {
             e.printStackTrace();
         }
     }
- 
 }

@@ -58,18 +58,18 @@ public class Listener1 {
 		    }
 
 		    private static String env(String key, String defaultValue) {
-			String rc = System.getenv(key);
-			if( rc== null ) {
-			    return defaultValue;
-			}
-			return rc;
+				String rc = System.getenv(key);
+				if( rc== null ) {
+				    return defaultValue;
+				}
+				return rc;
 		    }
 
 		    private static String arg(String []args, int index, String defaultValue) {
-			if( index < args.length ) {
-			    return args[index];
-			} else {
-			    return defaultValue;
-			}
+				if( index < args.length ) {
+				    return args[index];
+				} else {
+				    return defaultValue;
+				}
 		    }
 }

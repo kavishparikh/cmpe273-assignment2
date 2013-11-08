@@ -43,12 +43,11 @@ public class Publisher1 {
 				System.out.println("Output from Server .... \n");
 				System.out.println(output);
 				JSONObject json = (JSONObject) JSONSerializer.toJSON(output);  
-		//		 JSONObject json1 = json.getJSONObject("shipped_books");
-				 JSONArray shipped_books = json.getJSONArray("shipped_books");
-				 System.out.println(shipped_books);
-				 String[][] books = new String[shipped_books.size()][2];
-				 for(int i=0; i<shipped_books.size();i++)
-				 {
+				JSONArray shipped_books = json.getJSONArray("shipped_books");
+				System.out.println(shipped_books);
+				String[][] books = new String[shipped_books.size()][2];
+				for(int i=0; i<shipped_books.size();i++)
+				{
 					 String book1 = shipped_books.getString(i);
 					 JSONObject json1 = (JSONObject) JSONSerializer.toJSON(book1);  
 					 int isbn = json1.getInt("isbn");
@@ -58,14 +57,12 @@ public class Publisher1 {
 					 books[i][0]=isbn+":"+title+":"+category+":"+coverImage;
 					 books[i][1]=category;
 					 System.out.println(books[i][0]);
-				 }
-				 publishIt(books);
-			  } catch (Exception e) {
-		 
-				e.printStackTrace();
-		 
-			  }		 
-			}
+				}
+				publishIt(books);
+			} catch (Exception e) {
+		 		e.printStackTrace();
+		   }		 
+	 }
 	 
 	 public static void publishIt(String[][] books) throws JMSException
 	 {
@@ -84,7 +81,6 @@ public class Publisher1 {
 
 			for(int i=0;i<books.length;i++)
 			{
-	
 				String destination = arg(args,0,"/topic/69858.book."+books[i][1]);
 				Destination dest = new StompJmsDestination(destination);
 				MessageProducer producer = session.createProducer(dest);
@@ -95,7 +91,6 @@ public class Publisher1 {
 			}
 			
 			connection.close();
-
 		    }
 
 		    private static String env(String key, String defaultValue) {
@@ -112,6 +107,5 @@ public class Publisher1 {
 			} else {
 			    return defaultValue;
 			}
-		   }
-
+	   }
 }

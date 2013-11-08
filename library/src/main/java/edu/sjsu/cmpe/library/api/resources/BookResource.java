@@ -56,8 +56,7 @@ public class BookResource {
 		"GET"));
 	bookResponse.addLink(new LinkDto("update-book-status", "/books/"
 		+ book.getIsbn(), "PUT"));
-	// add more links
-
+	
 	return bookResponse;
     }
 

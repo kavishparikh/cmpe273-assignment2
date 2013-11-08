@@ -36,22 +36,22 @@ public class Listener2 {
 			while(true) {
 			    Message msg = consumer.receive();
 			    if( msg instanceof  TextMessage ) {
-				String body = ((TextMessage) msg).getText();
+			    	String body = ((TextMessage) msg).getText();
 				if( "SHUTDOWN".equals(body)) {
 				    break;
 				}
 				System.out.println("Received message = " + body);
 
 			    } else if (msg instanceof StompJmsMessage) {
-				StompJmsMessage smsg = ((StompJmsMessage) msg);
-				String body = smsg.getFrame().contentAsString();
-				if ("SHUTDOWN".equals(body)) {
-				    break;
-				}
-				System.out.println("Received message = " + body);
-
+					StompJmsMessage smsg = ((StompJmsMessage) msg);
+					String body = smsg.getFrame().contentAsString();
+					if ("SHUTDOWN".equals(body)) {
+					    break;
+					}
+					System.out.println("Received message = " + body);
+	
 			    } else {
-				System.out.println("Unexpected message type: "+msg.getClass());
+			    	System.out.println("Unexpected message type: "+msg.getClass());
 			    }
 			}
 			connection.close();
@@ -71,5 +71,5 @@ public class Listener2 {
 			} else {
 			    return defaultValue;
 			}
-		    }
+	}
 }

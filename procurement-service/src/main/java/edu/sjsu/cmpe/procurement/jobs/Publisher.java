@@ -86,7 +86,6 @@ public class Publisher {
 
 			for(int i=0;i<books.length;i++)
 			{
-	
 				String destination = arg(args,0,"/topic/69858.book."+books[i][1]);
 				Destination dest = new StompJmsDestination(destination);
 				MessageProducer producer = session.createProducer(dest);
@@ -97,23 +96,21 @@ public class Publisher {
 			}
 			
 			connection.close();
+	 }
 
-		    }
-
-		    private static String env(String key, String defaultValue) {
-			String rc = System.getenv(key);
-			if( rc== null ) {
-			    return defaultValue;
+	 private static String env(String key, String defaultValue) {
+		 String rc = System.getenv(key);
+		 if( rc== null ) {
+		 return defaultValue;
 			}
-			return rc;
-		    }
+		return rc;
+	 }
 
-		    private static String arg(String []args, int index, String defaultValue) {
-			if( index < args.length ) {
-			    return args[index];
-			} else {
-			    return defaultValue;
+	 private static String arg(String []args, int index, String defaultValue) {
+		if( index < args.length ) {
+		    return args[index];
+		} else {
+		    return defaultValue;
 			}
-		   }
-
+		}
 }

@@ -23,7 +23,7 @@ import com.sun.jersey.api.client.WebResource;
 
 class Consumer {
 
- //   @SuppressWarnings("static-access")
+	//@SuppressWarnings("static-access")
 	public static void bookOrder() throws JMSException, InterruptedException {
 	String user = env("APOLLO_USER", "admin");
 	String password = env("APOLLO_PASSWORD", "password");
@@ -118,7 +118,7 @@ class Consumer {
     	}
     
     
-  // Sending HTTP POST request using jersey client
+    // Sending HTTP POST request using jersey client
     public static void doPost(int[] isbnArray)
     {
     	try {
@@ -126,9 +126,6 @@ class Consumer {
             String baseuri = "http://54.215.210.214:9000/orders";
             WebResource webResource = client.resource(baseuri);
 
-//            MultivaluedMap formData = new MultivaluedMapImpl();
-//            formData.add("id", "69858");
-//            formData.add("order_book_isbns", isbnArray);
             String input = "{\"id\": \"69858\", "
                     + "\"order_book_isbns\": "+Arrays.toString(isbnArray)+"}";
 
@@ -150,5 +147,4 @@ class Consumer {
             e.printStackTrace();
         }
     }
- 
-}
+ }

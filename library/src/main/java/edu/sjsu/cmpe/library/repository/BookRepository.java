@@ -78,11 +78,6 @@ public class BookRepository implements BookRepositoryInterface {
 	return newBook;
     }
     
-//    public void addNewBook(Book newBook)
-//    {
-//    	bookInMemoryMap.putIfAbsent(newBook.getIsbn(), newBook);
-//    }
-
     /**
      * @see edu.sjsu.cmpe.library.repository.BookRepositoryInterface#getBookByISBN(java.lang.Long)
      */

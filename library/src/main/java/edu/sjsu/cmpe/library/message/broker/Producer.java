@@ -32,70 +32,50 @@ import edu.sjsu.cmpe.library.config.LibraryServiceConfiguration;
 
 public class Producer {
 
-//	private LibraryServiceConfiguration configuration;
-//		
-//    public LibraryServiceConfiguration getConfig() {
-//		return configuration;
-//	}
-//
-//	public void setConfig(LibraryServiceConfiguration configuration) {
-//		this.configuration = configuration;
-//	}
-
 	public void sendQueueMessage(Long isbn,LibraryServiceConfiguration configuration) throws JMSException {
 
-//    	String user = env("APOLLO_USER", "admin");
-//    	String password = env("APOLLO_PASSWORD", "password");
-//    	String host = env("APOLLO_HOST", "54.215.210.214");
-//    	int port = Integer.parseInt(env("APOLLO_PORT", "61613"));
-//    LibraryServiceConfiguration configuration = new LibraryServiceConfiguration();
-//    	LibraryService ls = new LibraryService();
-	String user = env("APOLLO_USER", configuration.getApolloUser());
-	String password = env("APOLLO_PASSWORD", configuration.getApolloPassword());
-	String host = env("APOLLO_HOST", configuration.getApolloHost());
-	int port = Integer.parseInt(env("APOLLO_PORT", "61613"));
-//	String port = env("APOLLO_PORT", "61680");
-//	String port = env("APOLLO_PORT", configuration.getApolloPort().toString());
-	String queue = configuration.getStompQueueName();
-	System.out.println("This is the queue to be passed:" +queue);
-	String[] args = new String[] {};
-	String destination = arg(args, 0, queue);
-
-	StompJmsConnectionFactory factory = new StompJmsConnectionFactory();
-	factory.setBrokerURI("tcp://" + host + ":" + port);
-
-	Connection connection = factory.createConnection(user, password);
-	connection.start();
-	Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-	Destination dest = new StompJmsDestination(destination);
-	MessageProducer producer = session.createProducer(dest);
-	producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-
-	System.out.println("Sending messages to " + queue + "...");
-	String data = configuration.getLibraryName()+":"+isbn.toString();
-	TextMessage msg = session.createTextMessage(data);
-	msg.setLongProperty("id", System.currentTimeMillis());
-	producer.send(msg);
-
-//	producer.send(session.createTextMessage("SHUTDOWN"));
-	connection.close();
-
+		String user = env("APOLLO_USER", configuration.getApolloUser());
+		String password = env("APOLLO_PASSWORD", configuration.getApolloPassword());
+		String host = env("APOLLO_HOST", configuration.getApolloHost());
+		int port = Integer.parseInt(env("APOLLO_PORT", "61613"));
+	
+		String queue = configuration.getStompQueueName();
+		System.out.println("This is the queue to be passed:" +queue);
+		String[] args = new String[] {};
+		String destination = arg(args, 0, queue);
+	
+		StompJmsConnectionFactory factory = new StompJmsConnectionFactory();
+		factory.setBrokerURI("tcp://" + host + ":" + port);
+	
+		Connection connection = factory.createConnection(user, password);
+		connection.start();
+		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		Destination dest = new StompJmsDestination(destination);
+		MessageProducer producer = session.createProducer(dest);
+		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+	
+		System.out.println("Sending messages to " + queue + "...");
+		String data = configuration.getLibraryName()+":"+isbn.toString();
+		TextMessage msg = session.createTextMessage(data);
+		msg.setLongProperty("id", System.currentTimeMillis());
+		producer.send(msg);
+	
+		connection.close();
     }
 
     private static String env(String key, String defaultValue) {
-	String rc = System.getenv(key);
-	if( rc== null ) {
-	    return defaultValue;
-	}
-	return rc;
+		String rc = System.getenv(key);
+		if( rc== null ) {
+		    return defaultValue;
+		}
+		return rc;
     }
 
     private static String arg(String []args, int index, String defaultValue) {
-	if( index < args.length ) {
-	    return args[index];
-	} else {
-	    return defaultValue;
-	}
+		if( index < args.length ) {
+		    return args[index];
+		} else {
+		    return defaultValue;
+		}
     }
-
 }

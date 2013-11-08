@@ -19,6 +19,6 @@ public class HomeResource {
 
     @GET
     public HomeView getHome() {
-	return new HomeView(bookRepository.getBookByISBN(1L));
+        return new HomeView(bookRepository.getAllBooks());
     }
 }

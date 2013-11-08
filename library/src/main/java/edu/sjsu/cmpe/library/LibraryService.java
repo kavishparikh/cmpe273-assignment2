@@ -61,9 +61,7 @@ public class LibraryService extends Service<LibraryServiceConfiguration> {
 	log.debug("{} - Queue name is {}. Topic name is {}",
 		configuration.getLibraryName(), queueName,
 		topicName);
-//	Producer producer = new Producer();
-//	producer.setConfig(configuration);
-	// TODO: Apollo STOMP Broker URL and login
+	 // TODO: Apollo STOMP Broker URL and login ---> DONE
 	 apolloUser = configuration.getApolloUser();
 	 apolloPassword = configuration.getApolloPassword();
 	 apolloHost = configuration.getApolloHost();
@@ -76,7 +74,6 @@ public class LibraryService extends Service<LibraryServiceConfiguration> {
 	/** Root API */
 	environment.addResource(RootResource.class);
 	/** Books APIs */
-//	BookRepositoryInterface bookRepository = new BookRepository();
 	environment.addResource(new BookResource(bookRepository,configuration));
 
 	/** UI Resources */

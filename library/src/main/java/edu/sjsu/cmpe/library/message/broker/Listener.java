@@ -24,18 +24,12 @@ import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 public class Listener {
 
 	 public static void pubSubListener(LibraryServiceConfiguration configuration, BookRepositoryInterface bookrepository) throws JMSException, MalformedURLException {
-
-//			String user = env("APOLLO_USER", "admin");
-//			String password = env("APOLLO_PASSWORD", "password");
-//			String host = env("APOLLO_HOST", "54.215.210.214");
-//			int port = Integer.parseInt(env("APOLLO_PORT", "61613"));
 		 
 			String user = env("APOLLO_USER", configuration.getApolloUser());
 			String password = env("APOLLO_PASSWORD", configuration.getApolloPassword());
 			String host = env("APOLLO_HOST", configuration.getApolloHost());
 			int port = Integer.parseInt(env("APOLLO_PORT", configuration.getApolloPort()));
 			String[] args = new String[]{};
-//			String destination = arg(args, 0, "/topic/69858.book.*");
 			String destination = arg(args,0,configuration.getStompTopicName());
 			StompJmsConnectionFactory factory = new StompJmsConnectionFactory();
 			factory.setBrokerURI("tcp://" + host + ":" + port);
@@ -62,10 +56,9 @@ public class Listener {
 				 
 				 for(String incr :  partString)
 				 System.out.println(incr);
-				 // It will update book object
-	//			BookRepository bookrepositry = new BookRepository();
-				 
-				Book book = bookrepository.getBookByISBN(isbn);
+				 // It will update the book object
+
+				 Book book = bookrepository.getBookByISBN(isbn);
 				if(book != null)
 				{
 					book.setStatus(Status.available);
@@ -97,9 +90,8 @@ public class Listener {
 				 for(String incr :  partString)
 				 System.out.println(incr);
 				 // It will update book object
-			//	BookRepositoryInterface bookrepositry = new BookRepository();
-				 
-				Book book = bookrepository.getBookByISBN(isbn);
+
+				 Book book = bookrepository.getBookByISBN(isbn);
 				if(book != null)
 				{
 					book.setStatus(Status.available);
